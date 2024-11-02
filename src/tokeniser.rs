@@ -42,7 +42,14 @@ pub fn tokenise(mut txt: &str)->Vec<Token> {
             ' ' => {txt = &txt[1..]; continue},
             '^' => tokens.push(Token {ttype: TokenType::POW, val: 0.0}),
             '+' => tokens.push(Token {ttype: TokenType::ADD, val: 0.0}),
-            '*'|'x'|'X' => tokens.push(Token {ttype: TokenType::MUL, val: 0.0}),
+            'x'|'X' => tokens.push(Token {ttype: TokenType::MUL, val: 0.0}),
+            '*' => {
+                if txt.chars().nth(1).unwrap() == '*' {
+                    tokens.push(Token {ttype: TokenType::POW, val: 0.0});
+                } else {
+                    tokens.push(Token {ttype: TokenType::MUL, val: 0.0});
+                }
+            },
             '/' => tokens.push(Token {ttype: TokenType::DIV, val: 0.0}),
             '-' => tokens.push(Token {ttype: TokenType::SUB, val: 0.0}),
             '0'..='9' => {
