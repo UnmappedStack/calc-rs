@@ -4,7 +4,6 @@ use std::process;
 use crate::tokeniser;
 use std::collections::HashMap;
 
-#[allow(dead_code)]
 pub struct Branch {
     pub is_num_node: bool,
     pub val: f64, // only set if is_num_node is true
