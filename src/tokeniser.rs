@@ -46,16 +46,18 @@ pub fn tokenise(mut txt: &str)->Vec<Token> {
             '/' => tokens.push(Token {ttype: TokenType::DIV, val: 0.0}),
             '-' => tokens.push(Token {ttype: TokenType::SUB, val: 0.0}),
             '0'..='9' => {
-                let mut num_str = c.to_string();
+                let mut num_str: &str = &c.to_string();
                 txt = &txt[1..];
                 if txt.len() > 0 {
                     let mut this_char: char = txt.chars().next().unwrap();
+                    let mut i = 0;
                     while (this_char >= '0' && this_char <= '9') || this_char == '.' {
-                        num_str.push(this_char);
                         txt = &txt[1..];
                         if txt.len() <= 0 { break }
                         this_char = txt.chars().next().unwrap();
                     }
+                    i += 1;
+                    num_str = &num_str[0..i];
                 }
                 tokens.push(Token {ttype: TokenType::NUM, val: num_str.parse::<f64>().unwrap()});
                 continue
