@@ -62,9 +62,7 @@ pub fn tokenise(mut txt: &str)->Vec<Token> {
                     this_char = txt.chars().next().unwrap();
                     i += 1;
                 }
-                println!("i = {}", i);
                 let num_str = &whole[0..i];
-                println!("num_str: {}", num_str);
                 tokens.push(Token {ttype: TokenType::NUM, val: num_str.parse::<f64>().unwrap()});
                 if txt.len() == 1 { break }
                 continue
