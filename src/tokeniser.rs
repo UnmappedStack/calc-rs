@@ -46,20 +46,20 @@ pub fn tokenise(mut txt: &str)->Vec<Token> {
             '/' => tokens.push(Token {ttype: TokenType::DIV, val: 0.0}),
             '-' => tokens.push(Token {ttype: TokenType::SUB, val: 0.0}),
             '0'..='9' => {
-                let mut num_str: &str = &c.to_string();
-                txt = &txt[1..];
-                if txt.len() > 0 {
-                    let mut this_char: char = txt.chars().next().unwrap();
-                    let mut i = 0;
-                    while (this_char >= '0' && this_char <= '9') || this_char == '.' {
-                        txt = &txt[1..];
-                        if txt.len() <= 0 { break }
-                        this_char = txt.chars().next().unwrap();
-                    }
+                let mut this_char: char = txt.chars().next().unwrap();
+                let mut i = 0;
+                let whole = txt;
+                while ((this_char >= '0' && this_char <= '9') || this_char == '.') && txt.len() > 0 {
+                    if txt.len() == 1 { i += 1; break }
+                    txt = &txt[1..];
+                    this_char = txt.chars().next().unwrap();
                     i += 1;
-                    num_str = &num_str[0..i];
                 }
+                println!("i = {}", i);
+                let num_str = &whole[0..i];
+                println!("num_str: {}", num_str);
                 tokens.push(Token {ttype: TokenType::NUM, val: num_str.parse::<f64>().unwrap()});
+                if txt.len() == 1 { break }
                 continue
             },
             _ => {
