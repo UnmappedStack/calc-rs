@@ -14,9 +14,9 @@ fn main() {
     io::stdin()
         .read_line(&mut eq)
         .expect("Couldn't read user input.");
-    eq = eq.trim().to_string();
+    let mut input = eq.trim();
     println!("Tokenising...");
-    let mut tokens: Vec<tokeniser::Token> = tokeniser::tokenise(&eq);
+    let mut tokens: Vec<tokeniser::Token> = tokeniser::tokenise(&mut input);
     println!("Tokenised, these are the tokens:");
     println!("{:?}", tokens);
     println!("Parsing & creating an AST...");
