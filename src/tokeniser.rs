@@ -34,14 +34,14 @@ impl fmt::Display for TokenType {
 }
 
 // Tokenises a string to a list of tokens.
-pub fn tokenise(txt: &mut String)->Vec<Token> {
-    txt.retain(|c| !c.is_whitespace());
+pub fn tokenise(txt: &String)->Vec<Token> {
     let mut tokens: Vec<Token> = Vec::new();
     let mut i = 0;
     let len = txt.len();
     while i < len {
         let c: char = txt.chars().nth(i).unwrap();
         match c {
+            ' ' => {i += 1; continue},
             '^' => tokens.push(Token {ttype: TokenType::POW, val: 0.0}),
             '+' => tokens.push(Token {ttype: TokenType::ADD, val: 0.0}),
             '*'|'x'|'X' => tokens.push(Token {ttype: TokenType::MUL, val: 0.0}),

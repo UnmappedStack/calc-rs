@@ -16,7 +16,7 @@ fn main() {
         .expect("Couldn't read user input.");
     eq = eq.trim().to_string();
     println!("Tokenising...");
-    let mut tokens: Vec<tokeniser::Token> = tokeniser::tokenise(&mut eq);
+    let mut tokens: Vec<tokeniser::Token> = tokeniser::tokenise(&eq);
     println!("Tokenised, these are the tokens:");
     println!("{:?}", tokens);
     println!("Parsing & creating an AST...");
