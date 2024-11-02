@@ -37,7 +37,7 @@ impl fmt::Display for TokenType {
 pub fn tokenise(mut txt: &str)->Vec<Token> {
     let mut tokens: Vec<Token> = Vec::new();
     while txt.len() > 0 {
-        let c: char = txt.chars().nth(0).unwrap();
+        let c: char = txt.chars().next().unwrap();
         match c {
             ' ' => {txt = &txt[1..]; continue},
             '^' => tokens.push(Token {ttype: TokenType::POW, val: 0.0}),
@@ -49,12 +49,12 @@ pub fn tokenise(mut txt: &str)->Vec<Token> {
                 let mut num_str = c.to_string();
                 txt = &txt[1..];
                 if txt.len() > 0 {
-                    let mut this_char: char = txt.chars().nth(0).unwrap();
+                    let mut this_char: char = txt.chars().next().unwrap();
                     while (this_char >= '0' && this_char <= '9') || this_char == '.' {
                         num_str.push(this_char);
                         txt = &txt[1..];
                         if txt.len() <= 0 { break }
-                        this_char = txt.chars().nth(0).unwrap();
+                        this_char = txt.chars().next().unwrap();
                     }
                 }
                 tokens.push(Token {ttype: TokenType::NUM, val: num_str.parse::<f64>().unwrap()});
